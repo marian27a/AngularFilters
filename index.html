@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="src/css/font-awesome.min.css">
+    <link rel="icon" href="favicon.ico">
+    
+    <style>
+        body{
+            background-color: #e3f2fd;
+        }
+        
+        li{
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        li .top{
+            height: 40%;
+            border-radius: 10px 10px 0 0;
+            background-color: aqua;
+            padding: 10px;
+            
+        }
+        li .bottom{
+            height: 60%;
+            background-color: gainsboro;
+            border-radius:  0 0 10px 10px;
+            padding: 10px;
+            
+        }
+        h4, h3{
+            margin: 5px;
+        }
+        h3{
+            display: inline-block;
+        }
+        .bottom span{
+            font-size: 15px;
+            margin-top: 10px;
+            font-display: block;
+        }
+        .help-block{
+            display: inline-block;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body ng-app="homeApp">
+  
+   <div class="container" ng-controller="homeCtrl as ctrl">
+       <div class="row">
+          <div class="col-sm-12">
+              <h4 style="margin">Hello Гість</h4><br>
+          </div>
+       </div>
+       <br>
+       <div class="row">
+         <div class="col-sm-12">
+            <form action="">
+               <div class="form-group">
+                   <input type="text" class="form-control" ng-click="ctrl.activateSearchingVal()"  ng-model="searchValue">
+               </div>
+                
+                <button type="button" id ="myInput" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" ng-click="ctrl.addContact()">
+                      Add
+                </button>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td ng-click="ctrl.activateSearchingVal('firstName')">FirstName</td>
+                        <td ng-click="ctrl.activateSearchingVal('lastName')">SecondName</td>
+                        <td ng-click="ctrl.activateSearchingVal('number')">Telephone</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="contact in ctrl.contacts | serchMatchesfiltrName:searchValue:searchActiveVal">
+<!--                       serchMatches: searchValue -->
+                        <td>{{contact.firstName}}</td>
+                        <td>{{contact.lastName}}</td>
+                        <td>{{contact.number}}</td>
+                        <td> <button type="button" id ="myInput2" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal2" ng-click="ctrl.changeContact($index)">
+                      Change
+                </button>
+                   <button type="button" class="btn btn-xs" ng-click="ctrl.removeContact($index)">
+                      Dellate
+                </button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+       
+       
+       
+        <div class="modal fade" id = "myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Write new contact</h4>
+        
+      </div>
+      <div class="modal-body">
+        <form name = "">
+              <div class="form-group">
+                <label for="firstName">FirsName</label>
+                <input type="text" class="form-control" id = "firstName" placeholder="" ng-model="ctrl.contact.firstName">
+              </div>
+               <div class="form-group">
+                <label for="secondName">SecondName</label>
+                <input type="text" class="form-control" id = "secondName" placeholder="" ng-model="ctrl.contact.lastName">
+              </div>
+               <div class="form-group">
+                <label for="changeTopic">Number</label>
+                <input type="text" class="form-control" id = "changeTopic" placeholder="" ng-model="ctrl.contact.number">
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  data-dismiss="modal">Chansel</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click = "ctrl.addContact()">Add contact</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ 
+  
+   
+    
+     <div class="modal fade" id = "myModal2" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Change contact</h4>
+        
+      </div>
+      <div class="modal-body">
+        <form name = "">
+              <div class="form-group">
+                <label for="FirstName">FirstName</label>
+                <input type="text" class="form-control" id = "FirstName" placeholder="" ng-model="ctrl.currentComment.firstName">
+              </div>
+              <div class="form-group">
+                <label for="LastName">LastName</label>
+                <input type="text" class="form-control" id = "LastName" placeholder="" ng-model="ctrl.currentComment.lastName">
+              </div>
+              <div class="form-group">
+                <label for="Number">Number</label>
+                <input type="text" class="form-control" id = "Number" placeholder="" ng-model="ctrl.currentComment.number">
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  data-dismiss="modal">Chansel</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click = "ctrl.SaveChanges()">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+  
+  
+   </div>
+    
+    
+   
+    
+   
+    <script src="src/libs/angular/angular.min.js"></script>
+    <!-- НАШІ ФАЙЛИКИ АПЛІКУХИ -->
+    <script src="app/app.js"></script>
+    <script src="app/services.js"></script>
+    <script src="app/controllers.js"></script>
+    <!-- -->
+    <script src="src/libs/jquery/jquery-3.1.1.min.js"></script>
+    <script src="src/js/bootstrap.min.js"></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
+    </script>
+    <script>
+        $('#myModal2').on('shown.bs.modal', function () {
+            $('#myInput2').focus()
+        })
+    </script>
+</body>
+</html>
